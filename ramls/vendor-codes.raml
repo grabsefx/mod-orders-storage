@@ -1,0 +1,43 @@
+#%RAML 1.0
+title: "mod-orders-storage"
+baseUri: http://github.com/folio-org/mod-orders-storage
+version: v7
+
+documentation:
+  - title: Orders
+    content: <b>Get list of purchase orders API.  This API is intended for internal use only.  Please use the /orders/composite-orders API provided by mod-orders instead.</b>
+
+types:
+    purchase_order: !include acq-models/mod-orders-storage/schemas/purchase_order.json
+    purchase_order_collection: !include acq-models/mod-orders-storage/schemas/purchase_order_collection.json
+
+traits:
+    pageable:  !include raml-util/traits/pageable.raml
+    searchable: !include raml-util/traits/searchable.raml
+    language: !include raml-util/traits/language.raml
+
+resourceTypes:
+    collection-get: !include raml-util/rtypes/collection-get.raml
+
+/orders-storage/vendor-codes:
+  type:
+    collection:
+      exampleCollection: !include acq-models/mod-orders-storage/examples/po_line_collection.sample
+      exampleItem: !include acq-models/mod-orders-storage/examples/po_line_get.sample
+      schemaCollection: po-line-collection
+      schemaItem: po-line
+  get:
+    description: Get list of po lines
+    is: [
+      searchable: {description: "with valid searchable fields: for example code", example: "[\"code\", \"MEDGRANT\", \"=\"]"},
+      pageable
+    ]
+  /{id}:
+    uriParameters:
+      id:
+        description: The UUID of a PO Line
+        type: UUID
+    type:
+      collection-item:
+        exampleItem: !include acq-models/mod-orders-storage/examples/po_line_get.sample
+        schema: po-line

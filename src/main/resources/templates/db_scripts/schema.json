@@ -1,5 +1,5 @@
 {
-  "exactCount" : 20000,
+  "exactCount": 20000,
   "scripts": [
     {
       "run": "after",
@@ -342,14 +342,17 @@
       "foreignKeys": [
         {
           "fieldName": "poLineId",
-          "targetTable":      "po_line",
+          "targetTable": "po_line",
           "targetTableAlias": "poLine",
           "tableAlias": "titles",
           "tOps": "ADD"
         },
         {
-          "targetPath": ["poLineId", "purchaseOrderId"],
-          "targetTable":      "purchase_order",
+          "targetPath": [
+            "poLineId",
+            "purchaseOrderId"
+          ],
+          "targetTable": "purchase_order",
           "targetTableAlias": "purchaseOrder",
           "tableAlias": "titles"
         }
@@ -412,6 +415,12 @@
       ]
     },
     {
+      "tableName": "vendor_codes",
+      "fromModuleVersion": "mod-orders-storage-11.0.0",
+      "withMetadata": true
+
+    },
+    {
       "tableName": "order_invoice_relationship",
       "fromModuleVersion": "mod-orders-storage-12.1.0",
       "withMetadata": false,
@@ -438,7 +447,7 @@
       "withMetadata": true,
       "uniqueIndex": [
         {
-            "fieldName" : "name"
+          "fieldName": "name"
         }
       ]
     },
@@ -449,7 +458,7 @@
       "auditingTableName": "NOT_EXISTING_AUDITING_TABLE"
     },
     {
-    "tableName": "acquisitions_unit_membership",
+      "tableName": "acquisitions_unit_membership",
       "fromModuleVersion": "mod-orders-storage-7.0.0",
       "withMetadata": true,
       "foreignKeys": [
@@ -459,27 +468,27 @@
         }
       ],
       "index": [
-         {
-            "fieldName" : "userId"
-         }
-       ]
-     },
-     {
+        {
+          "fieldName": "userId"
+        }
+      ]
+    },
+    {
       "tableName": "order_templates",
       "fromModuleVersion": "mod-orders-storage-8.0.0",
       "withMetadata": false,
       "uniqueIndex": [
-         {
-           "fieldName" : "templateName"
-         }
-       ]
-     },
+        {
+          "fieldName": "templateName"
+        }
+      ]
+    },
     {
       "tableName": "reasons_for_closure",
       "fromModuleVersion": "mod-orders-storage-10.0.0",
       "uniqueIndex": [
         {
-          "fieldName" : "reason"
+          "fieldName": "reason"
         }
       ]
     },
@@ -488,7 +497,7 @@
       "fromModuleVersion": "mod-orders-storage-10.0.0",
       "uniqueIndex": [
         {
-          "fieldName" : "name"
+          "fieldName": "name"
         }
       ]
     },
@@ -497,7 +506,7 @@
       "fromModuleVersion": "mod-orders-storage-10.0.0",
       "uniqueIndex": [
         {
-          "fieldName" : "name"
+          "fieldName": "name"
         }
       ]
     }
