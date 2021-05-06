@@ -8,8 +8,11 @@ documentation:
     content: <b>Get list of purchase orders API.  This API is intended for internal use only.  Please use the /orders/composite-orders API provided by mod-orders instead.</b>
 
 types:
-    purchase_order: !include acq-models/mod-orders-storage/schemas/purchase_order.json
-    purchase_order_collection: !include acq-models/mod-orders-storage/schemas/purchase_order_collection.json
+    vendor_code: !include acq-models/mod-orders-storage/schemas/vendor_code.json
+    vendor_code_collection: !include acq-models/mod-orders-storage/schemas/vendor_code_collection.json
+    UUID:
+     type: string
+     pattern: ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$
 
 traits:
     pageable:  !include raml-util/traits/pageable.raml
@@ -17,15 +20,16 @@ traits:
     language: !include raml-util/traits/language.raml
 
 resourceTypes:
-    collection-get: !include raml-util/rtypes/collection-get.raml
+    collection: !include raml-util/rtypes/collection.raml
+    collection-item: !include raml-util/rtypes/item-collection.raml
 
 /orders-storage/vendor-codes:
   type:
     collection:
-      exampleCollection: !include acq-models/mod-orders-storage/examples/po_line_collection.sample
-      exampleItem: !include acq-models/mod-orders-storage/examples/po_line_get.sample
-      schemaCollection: po-line-collection
-      schemaItem: po-line
+      exampleCollection: !include acq-models/mod-orders-storage/examples/vc.sample
+      exampleItem: !include acq-models/mod-orders-storage/examples/v.sample
+      schemaCollection: vendor_code_collection
+      schemaItem: vendor_code
   get:
     description: Get list of po lines
     is: [
@@ -39,5 +43,5 @@ resourceTypes:
         type: UUID
     type:
       collection-item:
-        exampleItem: !include acq-models/mod-orders-storage/examples/po_line_get.sample
-        schema: po-line
+        exampleItem: !include acq-models/mod-orders-storage/examples/v.sample
+        schema: vendor_code
