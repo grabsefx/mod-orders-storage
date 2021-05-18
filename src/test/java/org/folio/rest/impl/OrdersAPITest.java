@@ -1,8 +1,13 @@
 package org.folio.rest.impl;
 
+import static org.folio.rest.RestVerticle.OKAPI_HEADER_TENANT;
+import static org.folio.rest.utils.TenantApiTestUtil.deleteTenant;
+import static org.folio.rest.utils.TenantApiTestUtil.prepareTenant;
+import static org.folio.rest.utils.TenantApiTestUtil.purge;
 import static org.folio.rest.utils.TestEntities.PO_LINE;
 import static org.folio.rest.utils.TestEntities.PURCHASE_ORDER;
 import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.isIn;
@@ -11,6 +16,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
+import io.restassured.http.Header;
 import io.vertx.core.json.JsonObject;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
@@ -18,7 +24,10 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.folio.rest.jaxrs.model.PurchaseOrder;
 import org.folio.rest.jaxrs.model.PurchaseOrder.WorkflowStatus;
 import org.folio.rest.jaxrs.model.PurchaseOrderCollection;
+import org.folio.rest.jaxrs.model.TenantJob;
+import org.folio.rest.utils.IsolatedTenant;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtensionContext;
 
 import java.lang.reflect.Field;
 import java.net.MalformedURLException;
@@ -63,6 +72,7 @@ public class OrdersAPITest extends TestBase {
       // assign 2 units
       purchaseOrderSample.getAcqUnitIds().add(acqUnitId1);
       purchaseOrderSample.getAcqUnitIds().add(acqUnitId2);
+      purchaseOrderSample.setVendor(null);
       purchaseOrderSampleId = createEntity(PURCHASE_ORDER.getEndpoint(), JsonObject.mapFrom(purchaseOrderSample).encode());
 
       expectedOrders.put(purchaseOrderSampleId, purchaseOrderSample);
@@ -167,6 +177,26 @@ public class OrdersAPITest extends TestBase {
     logger.info("--- mod-orders-storage orders test: Invalid CQL query");
     testInvalidCQLQuery(ORDERS_ENDPOINT + "?query=invalid-query");
   }
+
+  @Test
+  @IsolatedTenant
+  public void testGetOrdersSortedByVendorCode() throws MalformedURLException {
+    TenantJob tenantJob = prepareTenant(TENANT_HEADER, true, true);
+
+    String endpoint = PURCHASE_ORDER.getEndpoint() + "?query=workflowStatus=Pending sortBy vendorCode.externalVendorId/sort.descending";
+    String poCollection = getData(endpoint, TENANT_HEADER)
+      .then()
+      .log().all()
+      .statusCode(200)
+      .extract().response().asString();
+
+    purge(TENANT_HEADER);
+    deleteTenant(tenantJob, TENANT_HEADER);
+
+    System.out.println(poCollection);
+
+  }
+
 
   private PurchaseOrder getOrder(String path) {
     return getFileAsObject(path, PurchaseOrder.class);

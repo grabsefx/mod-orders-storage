@@ -27,6 +27,7 @@ import org.folio.rest.jaxrs.model.PoLine;
 import org.folio.rest.jaxrs.model.PoLine.OrderFormat;
 import org.folio.rest.jaxrs.model.PoLineCollection;
 import org.folio.rest.jaxrs.model.PurchaseOrder;
+import org.folio.rest.jaxrs.model.PurchaseOrderCollection;
 import org.folio.rest.jaxrs.model.TenantJob;
 import org.folio.rest.utils.TestEntities;
 import org.junit.jupiter.api.AfterAll;

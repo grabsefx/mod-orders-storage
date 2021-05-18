@@ -164,6 +164,8 @@ public class ReceivingHistoryTest extends TestBase {
 
     purchaseOrderSample.getAcqUnitIds().add(UUID.randomUUID().toString());
     purchaseOrderSample.getAcqUnitIds().add(UUID.randomUUID().toString());
+    purchaseOrderSample.setVendor(null);
+    purchaseOrderSample2.setVendor(null);
 
     createEntity(PURCHASE_ORDER.getEndpoint(), mapFrom(purchaseOrderSample).encode(), ISOLATED_TENANT_HEADER);
     createEntity(PURCHASE_ORDER.getEndpoint(), mapFrom(purchaseOrderSample2).encode(), ISOLATED_TENANT_HEADER);

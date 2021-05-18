@@ -13,11 +13,13 @@ import org.folio.rest.jaxrs.model.ReasonForClosure;
 import org.folio.rest.jaxrs.model.ReportingCode;
 import org.folio.rest.jaxrs.model.Suffix;
 import org.folio.rest.jaxrs.model.Title;
+import org.folio.rest.jaxrs.model.VendorCode;
 
 public enum TestEntities {
   // the below order is important to satisfy the foreign key constraints
   ALERT("/orders-storage/alerts", Alert.class, TestData.Alert.DEFAULT,  "alert", "Receipt overdue updated", 1),
   REPORTING_CODE("/orders-storage/reporting-codes", ReportingCode.class, TestData.ReportingCode.DEFAULT, "code", "CODEV", 1),
+  VENDOR_CODE("/orders-storage/vendor-codes", VendorCode.class, TestData.VendorCode.DEFAULT, "vendorCode", "666666", 5),
   PURCHASE_ORDER("/orders-storage/purchase-orders", PurchaseOrder.class, TestData.PurchaseOrder.DEFAULT, "poNumber", "666666", 6),
   PO_LINE("/orders-storage/po-lines", PoLine.class, TestData.PoLine.DEFAULT, "description", "Gift", 5),
   TITLES("/orders-storage/titles", Title.class, TestData.Title.DEFAULT, "title", "New title", 5),

@@ -32,6 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 @IsolatedTenant
 class PurchaseOrderLinesApiTest extends TestBase {
 
+  private static final String VENDOR_FIELD = "vendor";
   private final Logger logger = LogManager.getLogger(PurchaseOrderLinesApiTest.class);
 
   @Test
@@ -210,6 +211,7 @@ class PurchaseOrderLinesApiTest extends TestBase {
 
     JsonObject jsonOrder = new JsonObject(getFile("data/purchase-orders/81_ongoing_pending.json"));
     JsonObject jsonLine = new JsonObject(getFile("data/po-lines/81-1_pending_fomat-other.json"));
+    jsonOrder.remove(VENDOR_FIELD);
 
     postData(PURCHASE_ORDER.getEndpoint(), jsonOrder.toString()).then().statusCode(201);
 

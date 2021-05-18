@@ -94,10 +94,23 @@
       "withMetadata": true
     },
     {
+      "tableName": "vendor_code",
+      "fromModuleVersion": "mod-orders-storage-11.0.0",
+      "withMetadata": true
+    },
+    {
       "tableName": "purchase_order",
       "fromModuleVersion": "mod-orders-storage-10.0.0",
       "withMetadata": true,
       "customSnippetPath": "purchase_order_table.sql",
+      "foreignKeys": [
+        {
+          "fieldName": "vendor",
+          "targetTable": "vendor_code",
+          "tableAlias": "purchaseOrder",
+          "targetTableAlias": "vendorCode"
+        }
+      ],
       "index": [
         {
           "fieldName": "acqUnitIds",
@@ -413,12 +426,6 @@
           "removeAccents": true
         }
       ]
-    },
-    {
-      "tableName": "vendor_codes",
-      "fromModuleVersion": "mod-orders-storage-11.0.0",
-      "withMetadata": true
-
     },
     {
       "tableName": "order_invoice_relationship",

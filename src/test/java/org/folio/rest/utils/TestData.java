@@ -1,5 +1,7 @@
 package org.folio.rest.utils;
 
+import org.folio.rest.jaxrs.model.VendorCode;
+
 public class TestData {
 
   public interface Alert {
@@ -60,4 +62,9 @@ public class TestData {
   public interface Suffix {
     String DEFAULT = "data/configuration/suffixes/suffix.json";
   }
+
+  public interface VendorCode {
+    String DEFAULT = "data/configuration/vendor-codes/v1.json";
+  }
+
 }

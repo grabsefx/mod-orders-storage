@@ -26,7 +26,7 @@ public class IsolatedTenantExtension implements BeforeTestExecutionCallback, Aft
     if (hasTenantAnnotationClassOrMethod(context)) {
       final Header TENANT_HEADER = new Header(OKAPI_HEADER_TENANT, ISOLATED_TENANT);
 
-      tenantJob = prepareTenant(TENANT_HEADER, false, false);
+      tenantJob = prepareTenant(TENANT_HEADER, true, true);
       logger.info("Isolated tenant has been prepared");
     }
   }
