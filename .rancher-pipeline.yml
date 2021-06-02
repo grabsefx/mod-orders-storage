@@ -15,7 +15,7 @@ stages:
 - name: Deploy
   steps:
   - applyAppConfig:
-      catalogTemplate: mod-orders-storage
+      catalogTemplate: thunderjet-helmcharts
       version: 0.1.32
       answers:
         image.repository: docker.dev.folio.org/mod-orders-storage
