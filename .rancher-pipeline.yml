@@ -9,7 +9,7 @@ stages:
   - publishImageConfig:
       dockerfilePath: ./Dockerfile
       buildContext: .
-      tag: docker.dev.folio.org/mod-orders-storage:12.1.0-SNAPSHOT.233
+      tag: docker.dev.folio.org/mod-orders-storage:12.1.0-SNAPSHOT.224
       pushRemote: true
       registry: docker.dev.folio.org
 - name: Deploy
@@ -19,7 +19,7 @@ stages:
       version: 0.1.32
       answers:
         image.repository: docker.dev.folio.org/mod-orders-storage
-        image.tag: 12.1.0-SNAPSHOT.233
+        image.tag: 12.1.0-SNAPSHOT.224
         postJob.enabled: "true"
       name: mod-orders-storage
       targetNamespace: thunderjet
